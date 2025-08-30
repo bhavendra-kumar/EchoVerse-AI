@@ -1,7 +1,6 @@
 import { useState } from "react";
 import InputTab from "./tabs/InputTab";
 import SettingsTab from "./tabs/SettingsTab";
-import PreviewTab from "./tabs/PreviewTab";
 
 export default function Tabs() {
   const [activeTab, setActiveTab] = useState("input");
@@ -28,18 +27,9 @@ export default function Tabs() {
           }`}
           onClick={() => setActiveTab("settings")}
         >
-          Settings
+          AI Narration
         </button>
-        <button
-          className={`px-4 py-2 rounded-t-lg font-medium ${
-            activeTab === "preview"
-              ? "bg-indigo-600 text-white"
-              : "text-gray-600 hover:text-indigo-600"
-          }`}
-          onClick={() => setActiveTab("preview")}
-        >
-          Preview
-        </button>
+       
       </div>
 
       {/* Tab Content */}
