@@ -1,22 +1,27 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-require("dotenv").config();
+const dotenv = require("dotenv");
+const path = require("path");
 
-const projectRoutes = require("./routes/Project");
+const connectDB = require("./config/db.js");
+const uploadRoutes = require("./routes/UploadRoutes.js");
+const videoRoutes = require("./routes/VideoRoutes.js");
+const aiRoutes = require("./routes/AiRoutes.js");
+const scriptRoutes = require("./routes/ScriptRoutes.js");
+
+dotenv.config();
+connectDB();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 
-app.use("/api/projects", projectRoutes);
+// Serve static uploads folder
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-
-.then(() => console.log("MongoDB Connected"))
-.catch(err => console.error("MongoDB Error:", err));
+// Routes
+app.use("/api/upload", uploadRoutes);
+app.use("/api/video", videoRoutes);
+app.use("/api/ai", aiRoutes);
+app.use("/api/script", scriptRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
