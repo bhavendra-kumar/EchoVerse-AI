@@ -8,14 +8,22 @@ export default function InputTab() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    if (option === "text") {
-      console.log("Submitted Text:", input);
-    } else {
-      console.log("Uploaded File:", file);
+    if (option === "text" && !input) {
+      alert("Please enter some text.");
+      return;
+    }
+    if (option === "file" && !file) {
+      alert("Please upload a file.");
+      return;
     }
 
-    // Navigate to AI Summarize page (adjust route as per your app)
-    navigate("/ai-settings?summarize=true");
+    // Navigate to AISettingsTab and pass state
+    navigate("/settings", {
+      state: {
+        text: option === "text" ? input : "",
+        file: option === "file" ? file : null,
+      },
+    });
   };
 
   return (
@@ -65,15 +73,10 @@ export default function InputTab() {
         <input
           type="file"
           onChange={(e) => setFile(e.target.files[0])}
-          className="block w-full text-sm text-gray-600 
-                     file:mr-4 file:py-2 file:px-4 file:rounded-lg 
-                     file:border-0 file:text-sm file:font-medium 
-                     file:bg-indigo-50 file:text-indigo-700 
-                     hover:file:bg-indigo-100"
+          className="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
         />
       )}
 
-      {/* Submit Button */}
       <div className="mt-4">
         <button
           onClick={handleSubmit}

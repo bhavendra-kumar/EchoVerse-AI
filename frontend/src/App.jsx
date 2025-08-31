@@ -5,6 +5,8 @@ import FeatureCards from "./components/FeatureCard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { useState } from "react";
+import SettingsTab from "./components/SettingsTab";
+import AISettingsTab from "./pages/AiSettingTab";
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,6 +19,7 @@ export default function App() {
           {/* Public Routes */}
           <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
           <Route path="/signup" element={<Signup onSignup={() => setIsAuthenticated(true)} />} />
+            <Route path="/settings" element={<AISettingsTab/>}/>
 
           {/* Protected Routes */}
           <Route
